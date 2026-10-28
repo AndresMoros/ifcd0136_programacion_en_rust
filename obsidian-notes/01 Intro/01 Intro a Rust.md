@@ -1,0 +1,2 @@
+# Introducción a Rust
+Rust es un lenguaje de programación multiparadigma, compilado y con tipado fuerte, que destaca por su alto rendimiento y seguridad para desarrollar sistemas, servidores web y aplicaciones de backend (aunque también puede crear interfaces gráficas con frameworks como Tauri). 
