@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "ba5dbdfb9f856dce",
+        "id": "e3c1a0483402a48e",
         "type": "tabs",
         "children": [
           {
-            "id": "9de9120923f19704",
+            "id": "c273817bfd273fa5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01 Intro/01 Introducción al curso.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "01 Introducción al curso"
+              "title": "Nueva pestaña"
             }
           }
         ]
@@ -190,6 +186,13 @@
   },
   "active": "42adca4ee33febb1",
   "lastOpenFiles": [
+    "01 Intro/03 Variables y operadores.md",
+    "01 Intro/04 Tipos de datos.md",
+    "docs/04. Sintaxis del lenguaje II Tipos Primitivos.pdf",
+    "docs/Sin confirmar 33573.crdownload",
+    "01 Intro/02 Intro a Cargo.md",
+    "01 Intro/01 Intro a Rust.md",
+    "01 Intro/Cuestionario/Variables y mutabilidad.md",
     "docs/01. Introducción a Rust I.pdf",
     "docs/Sin confirmar 561149.crdownload",
     "docs",
