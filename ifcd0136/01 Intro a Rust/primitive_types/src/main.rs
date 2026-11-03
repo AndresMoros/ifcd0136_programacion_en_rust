@@ -101,6 +101,7 @@ fn main() {
 
     let (x, y, z) = tup; // De esta manera se pueden extraer valores de un tupla
 
+    println!("Tupla completa: {:?}", tup);
     println!("El valor de y es: {y}");
     println!("El valor del segundo elemento en la tabla es: {:?}", tup.1)
 }
