@@ -33,3 +33,17 @@ Si el shadowing se hace dentro de un bloque { ... }, la variable nueva solo vive
 ## Interpolación de variables
 ## Expresiones en salida de datos
 # Palabra clave `as` (parse)
+# Operador ternario
+En otros lenguajes, como JavaScript, existe el _ternary operator_: `?`, el cual evalua una expresión y ejecuta una tarea dependiendo de si es verdadero o falso:
+
+```js
+console.log("${true ? "Verdadero" : "Falso"}"); // Muestra 'Verdadero'
+```
+Este operador NO existe en Rust, pero puede simularse su sintaxis con una declaración `if {} else {}`.
+
+```rust
+
+let x = true;
+
+println!("{}", if x {"Verdadero"} else {"Falso"}); // Imprime 'Verdadero'
+```

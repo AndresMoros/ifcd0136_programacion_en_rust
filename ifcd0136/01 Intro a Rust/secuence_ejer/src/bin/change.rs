@@ -25,11 +25,6 @@ fn main() {
 
     println!("x: {x} | y: {y}");
 
-
-
-
-
-
 }
 
 fn read_number_f64() -> f64 {
