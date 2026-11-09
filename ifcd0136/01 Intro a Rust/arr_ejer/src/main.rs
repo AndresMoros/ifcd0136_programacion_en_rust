@@ -19,7 +19,26 @@ fn main() {
     Programa para comprar asientos de un autobús de 10 plazas, este marca los asientos ocupados con un “1” y los libres con un “0”. Solicitar al comprador que plaza quiere (del 1 al 10) y si el asiento ya se ha vendido, el programa lo señalará, si no se ha vendido la plaza quedará marcada con un “1” y le deseamos “Feliz viaje”.
     ¿Quieres ejecutar este ejercicio? S/N (por defecto N)");
 
-    bus_ticket();
+    let x = choose_check();
+
+    if x {
+        bus_ticket();
+    }
+
+    // EJECUCIÓN DE EJERCICIO 3
+    
+    println!(
+    "Ejercicio 3. 
+    Almacenar 300 números aleatorios en un vector, imprimir cuantos son ceros, cuantos son negativos, cuantos positivos.
+    ¿Quieres ejecutar este ejercicio? S/N (por defecto N)");
+
+    let x = choose_check();
+
+    if x {
+        count_nums();
+    }
+
+    // FIN DEL LOS EJERCICIOS
 }
 
 fn bus_ticket() {
@@ -165,4 +184,31 @@ fn choose_check() -> bool {
         println!("Ejercicio saltado\n##############################\n");
         false
     }
+}
+
+fn count_nums() {
+    let mut nums = [0; 601];
+
+    let mut negative = 0;
+    let mut positive = 0;
+    let mut zero = 0;
+
+    for n in &mut nums {
+        *n = n_rand(-300, 300);
+        match *n {
+            0 => {
+                zero += 1;
+            }
+            n if n > 0 => {
+                positive += 1;
+            }
+            n if n < 0 => {
+                negative += 1;
+            }
+            _ => {
+                
+            }
+        }
+    }
+    println!("Numeros positivos: {positive}\nNumero negativos: {negative}\nNumeros que son cero: {zero}")
 }
