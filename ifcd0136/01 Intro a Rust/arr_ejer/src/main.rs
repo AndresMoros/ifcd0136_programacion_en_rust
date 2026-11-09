@@ -1,5 +1,5 @@
 use rand::RngExt;
-use std::{io, println};
+use std::io;
 fn main() {
     // EJECUCIÓN DEL EJERCICIO 1
     println!(
@@ -14,43 +14,64 @@ fn main() {
     }
 
     // EJECUCIÓN DEL EJERCICIO 2
+    println!(
+    "Ejercicio 2: 
+    Programa para comprar asientos de un autobús de 10 plazas, este marca los asientos ocupados con un “1” y los libres con un “0”. Solicitar al comprador que plaza quiere (del 1 al 10) y si el asiento ya se ha vendido, el programa lo señalará, si no se ha vendido la plaza quedará marcada con un “1” y le deseamos “Feliz viaje”.
+    ¿Quieres ejecutar este ejercicio? S/N (por defecto N)");
+
     bus_ticket();
 }
 
-// 2. Programa para comprar asientos de un autobús de 10 plazas, este marca los asientos
-// ocupados con un “1” y los libres con un “0”.
-// Solicitar al comprador que plaza quiere (del 1 al 10) y si el asiento ya se ha vendido, el
-// programa lo señalará, si no se ha vendido la plaza quedará marcada con un “1” y le deseamos
-// “Feliz viaje”.
-// 3. Almacenar 300 números aleatorios en un vector, imprimir cuantos son ceros, cuantos son
-// negativos, cuantos positivos.
-
 fn bus_ticket() {
-    let mut bus_seats: [[i32;2];6] = [[0; 2]; 6];
+    // 2. Programa para comprar asientos de un autobús de 10 plazas, este marca los asientos
+    // ocupados con un “1” y los libres con un “0”.
+    // Solicitar al comprador que plaza quiere (del 1 al 10) y si el asiento ya se ha vendido, el
+    // programa lo señalará, si no se ha vendido la plaza quedará marcada con un “1” y le deseamos
+    // “Feliz viaje”.
+    // 3. Almacenar 300 números aleatorios en un vector, imprimir cuantos son ceros, cuantos son
+    // negativos, cuantos positivos.
+    // 0 = libre, 1 = ocupado
+    let mut bus_seats: [i32; 10] = [0; 10];
 
     for seats in &mut bus_seats {
-        for i in seats {
-            *i = n_rand(0, 1);
-        }
+        *seats = n_rand(0, 1);
     }
 
-    println!("Selecciona la fila:\n");
+    loop {
+        // Mostrar el estado del autobús
+        println!("\nEstado del autobús (0 = libre, 1 = ocupado):");
+        for (i, seat) in bus_seats.iter().enumerate() {
+            println!("Asiento {}: {}   ", i + 1, seat);
+        }
 
-    let mut row = 0; // Fila del bus
-    for i in 0..=&bus_seats.len() - 1 {
-        // Ya que un array empieza en 0, si el índice no es par, imprime el índice anterior y el áctual
-        // Si es par, se salta el bucle actual
-        if !is_even(i as i32) {
-            row += 1;
-            println!("Fila {row} del bus");
-            println!("|A{row}-B{row}|     |C{row}-D{row}|");
-            println!("{:?}|     |{:?}", bus_seats[i - 1], bus_seats[i]);
-            println!("===================");
-        } else {
+        // Si no quedan plazas libres, terminamos
+        if bus_seats.iter().all(|&s| s == 1) {
+            println!("El autobús está completo. ¡Buen viaje a todos!");
+            break;
+        }
+
+        println!("¿Qué plaza quieres? (del 1 al 10, 0 para salir):");
+        let seat_num = read_num_i32();
+
+        if seat_num == 0 {
+            println!("Hasta luego.");
+            break;
+        }
+
+        if seat_num < 1 || seat_num > 10 {
+            println!("Esa plaza no existe. Elige del 1 al 10.");
             continue;
         }
-    }
 
+        let idx = (seat_num - 1) as usize;
+
+        if bus_seats[idx] == 1 {
+            println!("La plaza {seat_num} ya está vendida.");
+        } else {
+            bus_seats[idx] = 1;
+            println!("¡Feliz viaje! Plaza {seat_num} reservada.");
+        }
+    }
 }
 
 fn n_guess() {
@@ -144,14 +165,4 @@ fn choose_check() -> bool {
         println!("Ejercicio saltado\n##############################\n");
         false
     }
-}
-
-/// Evalua si `n` es un número par
-/// # Parámetros
-/// - `n`: i32
-/// # Devuelve
-/// - `true` -> es par
-/// - `false` -> no es par
-fn is_even(n: i32) -> bool {
-    if n % 2 == 0 { true } else { false }
 }
