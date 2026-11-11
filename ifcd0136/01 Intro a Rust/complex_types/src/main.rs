@@ -17,7 +17,7 @@ fn main() {
     s.push('!'); // añade un char
     s.push_str(" mundo"); // añade un &str
     s.insert(0, '¡'); // inserta char en posición (en bytes)
-    s.insert_str(1, "ey, "); // inserta &str
+    // s.insert_str(1, "ey, "); // inserta &str
     // ERROR al insertar &str en byte 1 ocupado por ! que ocupa 2 bytes
     // ⚠️ Los índices son en bytes: paniquea si cortas en medio de un char UTF-8
     s.pop(); // quita y devuelve el último char (Option<char>)

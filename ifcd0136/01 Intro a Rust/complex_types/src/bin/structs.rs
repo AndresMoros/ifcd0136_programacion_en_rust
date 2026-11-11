@@ -1,3 +1,9 @@
+#[allow(unused_unsafe)]
+#[allow(unused_assignments)]
+#[allow(unused_variables)]
+#[allow(unused)]
+#[allow(dead_code)]
+// Enumeraciones y estructuras
 #[derive(Debug)]
 enum OrentacionSexual {
     Masculino,
@@ -5,6 +11,7 @@ enum OrentacionSexual {
     Otro,
 }
 
+#[derive(Debug)]
 enum Profesion {
     Programador,
     Analista,
@@ -21,7 +28,9 @@ struct Persona {
     es_adulto: bool,
 }
 
+#[derive(Debug)]
 struct Trabajador {
+    persona: Persona,
     puesto: Profesion,
     salario: u16,
 }
@@ -68,6 +77,16 @@ impl Persona {
     }
 }
 
+impl Trabajador {
+    fn new(persona: Persona, puesto: Profesion, salario: u16) -> Self {
+        Trabajador {
+            persona,
+            puesto,
+            salario,
+        }
+    }
+}
+
 fn main() {
     let andres = Persona::new(
         String::from("Andrés Moros"),
@@ -84,4 +103,22 @@ fn main() {
         andres.get_gender(),
         if andres.is_adult() { "Sí" } else { "No" },
     );
+
+    // let sergio = Persona::new(
+    //     String::from("Sergio Gutierrez"),
+    //     1999,
+    //     OrentacionSexual::Otro,
+    // );
+
+    let trabajador = Trabajador::new(
+        Persona::new(
+            String::from("Sergio Gutierrez"),
+            1999,
+            OrentacionSexual::Otro,
+        ),
+        Profesion::Programador,
+        1280,
+    );
+
+    println!("Trabajador: {trabajador:?}");
 }
