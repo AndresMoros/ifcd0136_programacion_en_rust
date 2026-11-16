@@ -1,6 +1,7 @@
+use std::fmt::format;
+use std::io;
 #[allow(unused)]
 #[allow(dead_code)]
-use std::io;
 
 /// Lee input del usuario y devuelve un `f64`
 /// # Param
@@ -25,28 +26,28 @@ pub fn read_f64(input: &mut String) -> f64 {
     n
 }
 
-// Lee input del usuario y devuelve un `i32`
-// # Param
-// - `input`: &mut String
-// # Devuelve
-// - `n`: i32
-// pub fn read_i32(input: &mut String) -> i32 {
-//     let n: i32;
-//     loop {
-//         input.clear();
-//         io::stdin().read_line(input).expect("Error al leer");
-//         match input.trim().replace(',', ".").parse() {
-//             Ok(num) => {
-//                 n = num;
-//                 break;
-//             }
-//             Err(_e) => {
-//                 println!("Introduce un número");
-//             }
-//         }
-//     }
-//     n
-// }
+/// Lee input del usuario y devuelve un `i32`
+/// # Param
+/// - `input`: &mut String
+/// # Devuelve
+/// - `n`: i32
+pub fn read_i32(input: &mut String) -> i32 {
+    let n: i32;
+    loop {
+        input.clear();
+        io::stdin().read_line(input).expect("Error al leer");
+        match input.trim().replace(',', ".").parse() {
+            Ok(num) => {
+                n = num;
+                break;
+            }
+            Err(_e) => {
+                println!("Introduce un número");
+            }
+        }
+    }
+    n
+}
 
 /// Lee input del usuario y devuelve un `String`
 /// # Param
@@ -116,7 +117,7 @@ impl Calculator {
 /// - `get_last_name`
 /// - `get_dni`
 #[derive(Debug)]
-struct Person {
+pub struct Person {
     name: String,
     last_name: String,
     dni: String,
@@ -130,7 +131,7 @@ impl Person {
     /// - `dni`: String
     /// # Devuelve
     /// - `Person` struct
-    pub fn new(&mut self, name: String, last_name: String, dni: String) -> Self {
+    pub fn new(name: String, last_name: String, dni: String) -> Self {
         Person {
             name: name,
             last_name: last_name,
@@ -161,7 +162,8 @@ impl Person {
 /// - `get_name`
 /// - `get_last_name`
 /// - `get_dni`
-struct Client {
+#[derive(Debug)]
+pub struct Client {
     personal: Person,
     password: String,
     balance: f64,
@@ -175,7 +177,7 @@ impl Client {
     /// - `bal`: f64 | Saldo disponible
     /// # Devuelve
     /// - `Client` struct
-    pub fn new(&mut self, per: Person, pass: String, bal: f64) -> Self {
+    pub fn new(per: Person, pass: String, bal: f64) -> Self {
         Client {
             personal: per,
             password: pass,
@@ -187,7 +189,7 @@ impl Client {
     /// - `self`
     /// # Devuelve
     /// - `self.balance`: f64
-    pub fn get_bal(self) -> f64 {
+    pub fn get_bal(&self) -> f64 {
         self.balance
     }
     /// Establecer el saldo disponible
@@ -201,45 +203,97 @@ impl Client {
     //     self.name
     // }
 }
-/// Estructura de cajero debe poder:
-/// - Verificar que el usuario existe
+/// Estructura de cajero:
+/// - Dibujar el menú
 /// - Dar feedback al usuario
-/// - Verificar si la contraseña es correcta
-/// - Mostrar el saldo en cualquier momento
-/// - Hacer  
-struct Cashpoint {}
+/// - Realizar varias operaciones por sesión
+/// - Ingresar dinero
+/// - Retirar dinero
+/// # Implementaciones:
+/// - `check_balance`: ver el saldo del usuario
+/// - `enter_money`: depositar dinero en la cuenta del usuario
+/// - `withdraw_money`: retirar dinero en la cuenta del usuario
+pub struct Cashpoint {}
 
 impl Cashpoint {
-    /// Permite acceder al usuario a la interfaz del cajero
-    pub fn login(self, clients: [Client; 10], dni: String, pass: String) -> bool {
-        const MAX_ATTEMPS: u8 = 3;
-        let mut attemp = 0;
-        let mut input: String = String::new();
-        Self::message(&format!("Introduce tu DNI y tu contraseña:"));
+    /// Dibuja el menú inicial del cajero
+
+    pub fn menu(user: &mut Client) {
         loop {
-            // Damos la bienvenida al usuario para que se identifique
-            Self::message(&format!("DNI:"));
-            // Recogemos el DNI del usuario
-            let mut stdin_dni = read_str(&mut input);
-            // Debemos compararlo con los clientes que tenemos en un array
-        }
-        false
-    }
+            println!("\n--- Opciones cajero ---");
+            println!("1. Consultar saldo");
+            println!("2. Ingresar");
+            println!("3. Retirar efectivo");
+            println!("4. Salir");
+            println!("Seleccionar una opcion: ");
 
-    pub fn manage_users(users: [Client; 10], username: String) -> bool {
-        for user in &users {
-            if username == user.personal.get_dni() {
-                break;
+            let mut input = String::new();
+            let option = read_i32(&mut input);
+
+            // Controlamos la opción que escoge el usuario
+
+            match option {
+                4 => {
+                    println!("Hasta luego, {}", user.personal.get_name());
+                    break; // Nos salimos del bucle solo si el usuario así lo desea, podemos realiza varias operaciones en una sola sesión
+                }
+                1 => {
+                    println!("Su saldo es: € {}", Self::check_balance(user));
+                }
+                2 => {
+                    println!("Saldo a ingresar: ");
+                    let amount = read_f64(&mut input);
+                    Self::enter_money(amount, user);
+                    println!("Saldo ingresado: € {amount}");
+                    println!("Su saldo es: € {}", Self::check_balance(user));
+                }
+                3 => {
+                    println!("Saldo a retirar: ");
+                    let amount = read_f64(&mut input);
+                    if Self::withdraw_money(amount, user) {
+                        println!("Operación exitosa.");
+                        println!("Retirado: € {amount}");
+                        println!("Su saldo es: € {}", Self::check_balance(user));
+                    } else {
+                        println!("Operación fallida.");
+                        println!("No puedes retirar más dinero del que tienes.");
+                        println!("Su saldo es: € {}", Self::check_balance(user));
+                    }
+                }
+                _ => {
+                    continue;
+                }
             }
-            return false;
         }
-        true
     }
 
-    /// Imprime un mensaje dependiendo de la función lo use
-    /// # Param:
-    /// `msg`: &str con mensaje a devolver
-    pub fn message(msg: &str) {
-        println!("{msg}");
+    /// Ingresa saldo
+    /// # Params:
+    /// - `amount`: f64 (cantidad de dinero)
+    /// - `user`: &mut Client (referencia mutable para modificar el saldo)
+    pub fn enter_money(amount: f64, user: &mut Client) {
+        &mut user.set_bal(user.get_bal() + amount);
+    }
+
+    /// Devuelve el saldo disponible en la cuenta del usuario
+    /// # Params:
+    /// - `client`: &Client (cliente a quien se le verifica el saldo)
+    pub fn check_balance(user: &Client) -> f64 {
+        user.get_bal()
+    }
+
+    /// Retirar saldo
+    /// # Params:
+    /// - `amount`: f64 (cantidad de dinero)
+    /// - `user`: &mut Client (referencia mutable para modificar el saldo)
+    /// # Devuelve
+    /// - `bool`: "true" si la operación es exitosa, "false" si falla
+    pub fn withdraw_money(amount: f64, user: &mut Client) -> bool {
+        if amount > user.get_bal() {
+            false
+        } else {
+            &mut user.set_bal(user.get_bal() - amount);
+            true
+        }
     }
 }

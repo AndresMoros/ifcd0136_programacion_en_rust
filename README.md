@@ -8,6 +8,7 @@ Curso de programación en Rust
 - [Comprehensive Rust | Google](https://google.github.io/comprehensive-rust/es/print.html)
 - [Serie para principiantes Rust | Microsoft Learn](https://learn.microsoft.com/es-es/shows/beginners-series-to-rust/)
 - [How to clear buffer cache | How To Guide Depot](https://howtoguidedepot.com/how-to-rust-how-to-clear-buffer-cach/)
+- [Rust / Curso inicial | El blog de Tinchicus](https://tinchicus.com/2022/09/26/rust-listado-del-curso-inicial/)
 
 # Herramientas empleadas
 - Obsidian | Documentación del curso

@@ -10,6 +10,8 @@ fn main() {
     ejer2();
 
     ejer5();
+
+    ejer6()
 }
 
 fn ejer1() {
@@ -115,4 +117,18 @@ fn ejer5() {
     println!("PRECIO ({km} km * € {PRECIO_KM}): {precio_billete}");
     println!("PRECIO FINAL: ({precio_billete} - (€ {desc_km:.2} + € {desc_dia}))");
     println!("TOTAL A PAGAR: {precio_billete_final:.2}");
+}
+
+fn ejer6() {
+    // 1. Crear la Person con su new
+    let persona = Person::new(
+        String::from("Juan"),
+        String::from("Pérez"),
+        String::from("12345678A"),
+    );
+
+    // 2. Crear el Client con su new, pasándole la Person
+    let mut cliente = Client::new(persona, String::from("1234"), 500.0);
+
+    Cashpoint::menu(&mut cliente);
 }
