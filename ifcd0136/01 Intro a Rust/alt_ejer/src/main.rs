@@ -1,13 +1,9 @@
 #[allow(unused)]
 #[allow(dead_code)]
 // DECLARACIÓN DE MÓDULOS
-mod calulator;
-mod input_user;
+mod utils;
 // CARGA DE MÓDULOS EN EL SCOPE
-use calulator::Calculator;
-use input_user::read_f64;
-use input_user::read_str;
-
+use utils::*;
 fn main() {
     ejer1();
 
