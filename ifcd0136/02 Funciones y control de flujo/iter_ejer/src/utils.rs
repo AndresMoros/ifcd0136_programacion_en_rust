@@ -1,5 +1,7 @@
+use rand::{RngExt, random};
 use std::fmt::format;
 use std::io;
+
 #[allow(unused)]
 #[allow(dead_code)]
 
@@ -58,6 +60,16 @@ pub fn read_str(input: &mut String) -> String {
     input.clear();
     io::stdin().read_line(input).expect("Error al leer");
     input.trim().parse().expect("Error al convertir en cadena")
+}
+
+/// Genera un número aleatorio en el rango especificado
+/// # Params
+/// - `start`: i32 | El numero desde el que se empieza el rango
+/// - `end`: i32 | El numero desde el que se empieza el rango (incluido)
+/// Devuelve:
+/// i32
+pub fn rand_num(start: i32, end: i32) -> i32 {
+    rand::random_range(start..=end)
 }
 // 1. Recibo por teclado 2 números y un operador que podrá ser (+, - , *, /)
 // Realizar la operación que corresponda y calcular el resultado.
