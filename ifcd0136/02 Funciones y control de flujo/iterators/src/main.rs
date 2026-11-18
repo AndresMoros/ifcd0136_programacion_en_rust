@@ -1,0 +1,21 @@
+fn main() {
+    // Los vectores son objetos iterables
+    // De forma imperativa se pueden realizar filtros mediante
+    // operaciones matemáticas sin funciones o métodos
+
+    println!("\nIMPERATIVO");
+    let nums = vec![
+        0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    ];
+
+    let mut pair_nums: Vec<i32> = vec![];
+
+    for n in &nums {
+        if n % 2 == 0 {
+            pair_nums.push(*n);
+        }
+    }
+
+    println!("{:?}", nums);
+    println!("{:?}", pair_nums);
+}
