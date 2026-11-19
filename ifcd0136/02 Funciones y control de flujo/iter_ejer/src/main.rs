@@ -25,9 +25,15 @@ fn main() {
         }
     }
 
-    println!("Numeros positivos: {:?}", positive.iter().count());
-    println!("Numeros negativos: {:?}", negative.iter().count());
-    println!("Numeros 0: {:?}", zero.iter().count());
+    // println!("Numeros positivos: {:?}", positive.iter().count());
+    // println!("Numeros negativos: {:?}", negative.iter().count());
+    // println!("Numeros 0: {:?}", zero.iter().count());
 
-    let iter_positive = numbers.iter.filter(|n| if n > 0 { n } else { None })
+    let iter_positive = numbers.iter().filter(|n| **n > 0);
+    let iter_negative = numbers.iter().filter(|n| **n < 0);
+    let iter_zero = numbers.iter().filter(|n| **n == 0);
+
+    println!("Numeros positivos: {:?}", iter_positive.count());
+    println!("Numeros negativos: {:?}", iter_negative.count());
+    println!("Numeros 0: {:?}", iter_zero.count());
 }
