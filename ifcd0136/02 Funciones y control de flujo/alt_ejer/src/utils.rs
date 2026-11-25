@@ -272,7 +272,7 @@ impl Cashpoint {
     /// - `amount`: f64 (cantidad de dinero)
     /// - `user`: &mut Client (referencia mutable para modificar el saldo)
     pub fn enter_money(amount: f64, user: &mut Client) {
-        &mut user.set_bal(user.get_bal() + amount);
+        user.set_bal(user.get_bal() + amount);
     }
 
     /// Devuelve el saldo disponible en la cuenta del usuario
@@ -292,7 +292,7 @@ impl Cashpoint {
         if amount > user.get_bal() {
             false
         } else {
-            &mut user.set_bal(user.get_bal() - amount);
+            user.set_bal(user.get_bal() - amount);
             true
         }
     }
